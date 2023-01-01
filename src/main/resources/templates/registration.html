@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Spring Boot Thymeleaf Hello World Example</title>
+
+    <!--<link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>&ndash;&gt;&ndash;&gt;-->
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/worksuggest_formview.css}" media="all">
+    <link rel="stylesheet" th:href="@{/static/css/worksuggest_main.css}"/>
+
+    <div th:replace="fragments/header.html :: header-css"/>
+
+</head>
+
+<body>
+<div th:insert="fragments/header.html :: header" >...</div>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+
+        <div id="form_container">
+            <form id="form_99788" class="appnitro"  method="post" action="#" th:action="@{./register_as_person}" th:object="${person}">
+                <div class="form_description">
+                    <h2>Registration</h2>
+                    <p>Please fill form to register.</p>
+
+                </div>
+                <ul >
+<!--                    <li>-->
+<!--                        <input type="text" th:field="*{id}" readonly="readonly"/>-->
+<!--                    </li>-->
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Username </label>
+                       <div>
+                            <input th:field="${person.username}" id="element_1" name="username" class="element text medium" type="text" maxlength="255" value=""/>
+                            <div th:if="${#fields.hasErrors('username')}" th:errors="${person.username}"
+                                style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                               Username Error</div>
+                        </div>
+                    </li>
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Password </label>
+                        <div>
+                            <input th:field="${person.password}" id="element_1" name="element_1" class="element text medium" type="password" maxlength="255" value=""/>
+                            <div th:if="${#fields.hasErrors('password')}" th:errors="${person.password}"
+                                 style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                                Password Error</div>
+                        </div>
+                    </li>
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Name </label>
+                        <div>
+                            <input th:field="${person.name}" id="element_1" name="element_1" class="element text medium" type="text" maxlength="255" value=""/>
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="${person.name}"
+                                 style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                                Name Error</div>
+                        </div>
+                    </li>
+                    <li id="li_2" >
+                    <label class="description" for="element_2">Email </label>
+                    <div>
+                        <input th:field="${person.email}" id="element_2" name="element_2" class="element text medium" type="text" maxlength="255" value=""/>
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="${person.email}"
+                             style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                            Email Error</div>
+                    </div>
+                    </li>
+                    <li id="li_3" >
+                    <label class="description" for="element_3">Phone </label>
+                    <div>
+                        <input th:field="${person.phone}" id="element_3" name="element_3" class="element text medium" type="text" maxlength="255" value=""/>
+                        <div th:if="${#fields.hasErrors('phone')}" th:errors="${person.phone}"
+                             style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                            Phone Error</div>
+                    </div>
+                    </li>
+                    <li id="li_4" >
+                    <label class="description" for="element_4">Address </label>
+                    <div>
+                        <input th:field="${person.address}" id="element_4" name="element_4" class="element text medium" type="text" maxlength="255" value=""/>
+                        <div th:if="${#fields.hasErrors('address')}" th:errors="${person.address}"
+                             style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                            Address Error</div>
+                    </div>
+                    </li>
+                    <li class="buttons">
+                        <input type="hidden" name="form_id" value="99788" />
+
+                        <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- <ol>
+        <li th:each="task : ${tasks}" th:text="${task}"></li>
+    </ol> -->
+    <a href="./">Home</a>
+
+</main>
+<!-- /.container -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

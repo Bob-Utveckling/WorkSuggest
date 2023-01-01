@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Work Suggest Application</title>
+
+    <!--<link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>&ndash;&gt;&ndash;&gt;-->
+    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" th:href="@{/css/worksuggest_main.css}"/>-->
+
+    <div th:replace="fragments/header.html :: header-css"/>
+
+</head>
+
+<body>
+<div th:insert="fragments/header.html :: header" >...</div>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Welcome!</h1>
+        <h2>
+            <!--<span th:text="'Hello, ' + ${message}"></span>-->
+            <span th:text="${message}"></span>
+        </h2>
+    </div>
+
+    <!-- <ol>
+        <li th:each="task : ${tasks}" th:text="${task}"></li>
+    </ol> -->
+    <a href="./about"><span class="mainLinks">About</span></a> |
+    <a href="./register_as_person"><span class="mainLinks">Register</span></a> |
+    <a href="./login"><span class="mainLinks">Login</span></a> |
+    <a href="./login"><span class="mainLinks" style="float: right">Administrators Login</span></a>
+
+</main>
+<div th:insert="fragments/footer :: footer"/>...</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+
+</body>
+</html>

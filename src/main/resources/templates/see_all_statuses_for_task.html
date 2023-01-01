@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Work Suggest Application</title>
+
+    <!--<link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>&ndash;&gt;&ndash;&gt;-->
+    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" th:href="@{/css/worksuggest_main.css}"/>-->
+
+    <div th:replace="fragments/header.html :: header-css"/>
+
+</head>
+<body>
+
+<div th:insert="fragments/header.html :: header" >...</div>
+
+<main role="main" class="container">
+    <div th:insert="fragments/general.html :: userDetailBar" >This was user bar</div>
+    <div class="starter-template">
+        <h3>See all task statuses for this task:</h3>
+        <hr>
+        <h1 th:text="${taskTitle}"></h1>
+        <div id="form_container">
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr style="background-color: #d8e589">
+                                    <td>Update</td>
+                                    <td style="background-color: #d9c1ff">Status</td>
+                                    <td style="border-right: 2px solid darkorchid">Comment</td>
+                                    <td style="border-right: 2px solid darkorchid">Start Date Time</td>
+                                    <td style="border-right: 2px solid darkorchid">End Date Time</td>
+                                    <td style="border-right: 2px solid darkorchid">Duration</td>
+                                </tr>
+                                <tr class="dataRow" th:each="iter : ${taskstatuses}">
+                                    <td>
+
+
+                    <a th:href="@{${baseURL} + '/person/'
+                    + ${person_id}
+                    + '/task/'
+                    + ${task_id}
+                    + '/updateTaskStatus/'
+                    + ${iter.getTask_id()}
+                     + '/'}">Update task status</a>
+                                    </td>
+                                    <td style="background-color: #b3d7ff;
+                                      padding-right: 20px;
+                                      border-bottom: 2px solid darkcyan;
+                                    " th:text="${iter.getStatus()}">status</td>
+
+                                    <td th:text="${iter.getComments()}">comment</td>
+                                    <td th:text="${iter.getStartdatetime()}">startdatetime</td>
+                                    <td th:text="${iter.getEnddatetime()}">enddatetime</td>
+                                    <td th:text="${iter.getDuration()}">duration</td>
+
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

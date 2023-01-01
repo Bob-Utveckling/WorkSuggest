@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Application for Suggesting and Completing Works</title>
+    <div th:insert="fragments/header.html :: header-css" >...</div>
+</head>
+
+<body>
+
+
+    <div th:insert="fragments/header.html :: header" >This was header bar</div>
+    <div th:insert="fragments/general.html :: message">This was message bar</div>
+
+    <main role="main" class="container">
+
+        <div style="background-color: rgba(84,211,105,0.46);
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;">
+    <span style="border-left:3px solid white;
+        border-top:3px solid white;
+        border-right:3px solid white;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;">
+        "Work Suggest" Items
+    </span>
+            <style>
+                #suggestButton {
+                    float:right;
+                    vertical-align: center;
+                    border:1px solid darkcyan;
+                    border-radius: 15px;
+                    font-size: 20px;
+                    background-color: green;
+                    color: white;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+                #suggestButton:hover {
+                    background-color: white;
+                    color: black;
+                }
+                .dataRow {
+                    border-bottom: 2px solid white;
+                }
+                .dataRow:hover {
+                    background-color: rgba(78, 226, 104, 0.58);
+                }
+            </style>
+            <span id="suggestButton">+ Suggest Work</span>
+            <table style="width:100%">
+                <tr style="background-color: #c3e6cb">
+                    <td>Id</td>
+                    <td>Title</td>
+                    <td>Description</td>
+                    <td>Admin Id</td>
+                    <td>Person Id</td>
+                    <td>General Status</td>
+                </tr>
+                <tr class="dataRow">
+                    <td th:text="${worksuggest.worksuggest_id}">id</td>
+                    <td th:text="${worksuggest.title}">iter.title</td>
+<!--                    <td th:text="${worksuggest.description} ?: 'Not Mentioned'">iter.description</td>-->
+                    <td th:text="${worksuggest.description}">iter.description</td>
+                    <td th:text="${worksuggest.adminid}">iter.adminId</td>
+                    <td th:text="${worksuggest.personid}">iter.personId</td>
+                    <td th:text="${worksuggest.generalstatus}">iter.generalStatus</td>
+                </tr>
+            </table>
+        </div>
+
+</main>
+<!-- /.container -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+
+
+CREATE DATABASE worksuggest1;
+
+USE worksuggest1;
+
+
+
+-- ====drop persons_tasks and persons first (has foreign key) ====
+DROP TABLE IF EXISTS persons_tasks;
+DROP TABLE IF EXISTS person;
+-- ====drop task status first (has foreign key), task after====
+DROP TABLE IF EXISTS taskstatus;
+DROP TABLE IF EXISTS task;
+DROP TABLE IF EXISTS worksuggest;
+DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS log;
+
+-- ===============person table=====================
+
+
+CREATE TABLE `person` (
+  `person_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`person_id`)
+);
+
+INSERT INTO `person` (person_id, username, password, name, email, phone, address)
+    VALUES (1,"bob","bob123", "Bob Lotfabadi", "bob@fripost.org", "0736262671", "Södra Klöverstigen 33 Nödinge 44931");
+INSERT INTO `person` (person_id, username, password, name, email, phone, address)
+    VALUES (2,"bamshad","bamshadpassword", "Bamshad L", "bob@fripost.org", "0704570034", "Södra Klöverstigen 33 Nödinge 44931");
+INSERT INTO `person` (person_id, username, password, name, email, phone, address)
+    VALUES (3,"john","johnpassword", "John", "john@bamshad.se", "0704570034", "Nödinge 44931");
+
+
+-- ===============worksuggest table=====================
+
+CREATE TABLE `worksuggest` (
+  `worksuggest_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255),
+  `description` varchar(255) NOT NULL,
+  `adminid` int(11) NOT NULL,
+  `personid` int(11) NOT NULL,
+  `generalstatus` varchar(255),
+  PRIMARY KEY (`worksuggest_id`)
+
+);
+
+INSERT INTO `worksuggest` (title, description, adminid, personId, generalStatus) VALUES (
+    "Preparing a work suggest application",
+    "design and offer an application where persons suggest a potential and receive the opporunity and resources to complete it",
+    1, 1, "confirmed");
+
+INSERT INTO `worksuggest` (title, description, adminid, personId, generalStatus) VALUES (
+    "document management",
+    "Preparing application for document management",
+    1, 1, "waiting for review");
+
+
+-- ===============task table=====================
+
+CREATE TABLE `task` (
+  `task_id` int(11) NOT NULL AUTO_INCREMENT,
+  `person_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text,
+  `resource_description` text,
+  `worklist_id` int(11),
+  PRIMARY KEY (`task_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `task` (person_id, title, description, resource_description, worklist_id) VALUES
+    (1, "review development suggestions", "Receive, review, and give suggestions for the application design and aim","need for 2 weeks time frame", 1);
+INSERT INTO `task` (person_id, title, description, resource_description, worklist_id) VALUES
+    (2, "implement a first draft", "Go through the development phases including SQL table desgin, Java EE requirements, Spring Boot application development and entity, controller, repository, service and security and error handling works", "2 months time frame", 1);
+
+-- ===============task status table=====================
+
+CREATE TABLE `taskstatus` (
+                              `taskstatus_id` int(11) NOT NULL AUTO_INCREMENT,
+                              `task_id` int(11) NOT NULL,
+                              `status` varchar(255) NOT NULL,
+                              `comments` text,
+                              `startdatetime` varchar(255) NOT NULL,
+                              `enddatetime` varchar(255) NOT NULL,
+                              `duration` varchar(255) NOT NULL,
+                              PRIMARY KEY (`taskstatus_id`),
+                              CONSTRAINT FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`)
+                                  ON DELETE CASCADE ON UPDATE CASCADE
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+INSERT INTO `taskstatus` (task_id, status, comments, startdatetime, enddatetime, duration) VALUES
+    (1,"done with first draft","first version of the draft is prepapred","January 1, 2020", "March 23, 2020", "Close to three months");
+-- ===================== persons_tasks table ==============
+
+ create table `persons_tasks`
+    (person_id int, task_id int,
+     CONSTRAINT person_task_pk PRIMARY KEY (person_id, task_id),
+     CONSTRAINT fk_person FOREIGN KEY (person_id) REFERENCES person (person_id),
+     CONSTRAINT fk_task FOREIGN KEY (task_id) REFERENCES task (task_id)
+     );
+
+-- ====================== admin table=====================
+
+
+CREATE TABLE `admin` (
+                        `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+                        `name` varchar(255) NOT NULL,
+                        `password` varchar(255) NOT NULL,
+                        `email` text,
+                        `phone` text,
+                        `address` text,
+                        PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `admin` (admin_id, name, password, email, phone, address) VALUES
+(1,"Admin 1","password", "admin@mygrouptasks.com","0736262671","Södra Klöverstigen 33");
+
+-- ====================== log table=====================
+
+
+CREATE TABLE `log` (
+                         `log_id` int(11) NOT NULL AUTO_INCREMENT,
+                         `message` varchar(255) NOT NULL,
+                         `datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                         PRIMARY KEY (log_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

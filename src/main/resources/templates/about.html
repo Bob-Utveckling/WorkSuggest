@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <a class="navbar-brand" th:href="${baseURL}"> < Home</a>
+    <p></p>
+    <p></p>
+
+    <div class="starter-template">
+        <h1>About</h1>
+    </div>
+
+    <h3>In this page:</h3>
+    <h2>Version Improvement Details and Features</h2>
+    <h2>Accessible Links</h2>
+    <h2>Development Details</h2>
+    <hr>
+    <h3>Content:</h3>
+    <p></p>
+    <p></p>
+    <h2>Version Improvement Details and Features</h2>
+
+
+
+    <ul><li><h4>- Version 1.1.1</h4>
+        <li>- can register as a person for the WorkSuggest application</li>
+    </ul>
+    <ul><li><h4>- Version 1.1.5</h4>
+        <li>- usere can access a basic panel related to his id which shows basic user details
+    </ul>
+    <ul><li><h4>- Version 1.1.6</h4>
+        <li>- The site has a more pleasant start page
+        <li>- security with one username pass works but
+        <br>gives access to all users' panels: http://localhost:8080/worksuggest_artifact_war_exploded/person/2</br>
+    </ul>
+    <ul><li><h4>- Version 1.1.6.3</h4>
+        <li>- utilized https://grokonez.com/spring-framework/spring-security/spring-security-customize-login-handler
+        <li>- admin log in will now take to admin page. user log in (but not from database)
+                will take to user panel, i.e. person/1
+        <li>- the control panel shows all (but not limited to person's) work suggest lists
+    </ul>
+    <ul><li><h4>- Version 1.2</h4>
+    <li>- Logged in person can see a list of tasks. Tasks belong to all various work lists.
+    </ul>
+    <ul><li><h4>- Version 1.4.1</h4></li>
+    <li>- Many-to-many relation seems to work (and is given its own Controller for all testing)
+    <br>The relation is between Persons and Tasks.
+    </ul>
+    <ul>
+        <li><h4>- Version 1.5</h4>
+    <li>- ActiveMQ, as beautiful and usefully described in tutorials:
+    <br>https://www.devglan.com/spring-boot/spring-boot-jms-activemq-example
+    <br>https://java2blog.com/spring-boot-activemq-example/
+    <br>is working as a MessageCreator and MessageReceiver.
+    <br>For example, a message is sent to Queue at:
+    <br>http://localhost:8080/worksuggest_war_exploded/person/1/suggest_a_task/
+    </ul>
+    <ul><li><h4>- Version 1.6</h4>
+    <li>- A Task Status can be written and added for a given task.
+    <br>example link: http://localhost:8080/worksuggest_war_exploded/person/1/task/1/addTaskStatus/
+    <li>- There is now an "Add Task Status" button available with every task in the Control Panel
+    <li>- Task Statuses can now be updated.
+    <br>An example link would be:
+    <br>http://localhost:8080/worksuggest_war_exploded/person/1/task/1/updateTaskStatus/63/
+    <li>- Work Suggest Lists can be viewed separately at their own link, eg:
+    <br>http://localhost:8080/worksuggest_war_exploded/person/1/worksuggestlist/2/
+
+    <li>- Persons can be added to specific tasks. A list of persons with ids and usernames
+    <br>are provided, as in:
+    <br>http://localhost:8080/worksuggest_war_exploded/person/1/task/1/addPerson/
+    <br>The person id can then be entered for an association with the task
+    <br>(many-to-many relation as in /show-the-persons-for-one-task/{task_id}
+    </ul>
+    <ul><li><h4>- Version 1.7</h4>
+    <li>- Persons usernames appear with every task in the panel, as added for the task
+    <li>- Admin control panel can be logged into. It shows a list of work suggeste lists.
+    <li>- Admin can now confirm WorkSuggest Lists. New lists
+    <li>- Admin can now set WorkSuggest Lists status to "Being Reviewed" and can change between
+    <br>"Confirm" and "Being Reviewed"
+    </ul>
+    <ul><li><h4>    - Version 1.8.0</h4>
+    <li>- failed but did try sending email using Outlook, Gmail, and a person mail account from the app
+    <li>- Uses Spring components
+    </ul>
+    <ul><li><h4>- Version 1.8.1</h4>
+    <li>- Administration tasks are now logged to database table "log" via JMS
+    <li>- It is possible to log any user POST event also via a message  in a format:
+    <br>this.jmsMessagingTemplate.convertAndSend(this.queue, "User added Task Status for task " + task_id );
+
+    </ul>
+    <ul>
+        <li><h4>- Version 1.8.2</h4></li>
+    <li>- Most recent task status is now visible with every task. This can be seen in the user control panel.
+    <li>- All task statuses for every task can now be accessed and viewed.
+    <li>- Task Statuses are visibly updateable
+    <li>- User bar is now present on all user pages
+    <li>- Work Suggest Lists can be created and submitted
+    <li>- Whn adding tasks, the work suggest list can be selected with the task
+    <li>- Admin can remove Work Suggest Lists
+    </ul>
+
+
+    <br><br>
+    <h2>Accessible Links</h2>
+
+    <br>####################### admin front end
+    <br>http://localhost:8080/worksuggest_war_exploded/admin/worksuggestlist/1/remove/
+    <br>http://localhost:8080/worksuggest_war_exploded/admin/
+    <br>http://localhost:8080/worksuggest_war_exploded/admin/setListToReviewing/1
+    <br>http://localhost:8080/worksuggest_war_exploded/admin/confirmList/1
+    <br>#######################
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>####################### user front end
+    <br>@GetMapping("/person/{person_id}/task/{task_id}/remove/")
+    <br>
+    <br>@GetMapping("/person/{person_id}/worksuggestlist/suggest/")
+    <br>@PostMapping("/person/{person_id}/worksuggestlist/suggest/")
+    <br>
+    <br>@GetMapping("/person/{person_id}/worksuggestlist/{worksuggest_id}/")
+    <br>	http://localhost:8080/worksuggest_war_exploded/person/1/worksuggestlist/2/
+    <br>
+    <br>@PostMapping("/person/{person_id}/task/{task_id}/addPerson/")
+    <br>@GetMapping("/person/{person_id}/task/{task_id}/addPerson/")
+    <br>	http://localhost:8080/worksuggest_war_exploded/person/1/task/1/addPerson/
+    <br>
+    <br>
+    <br>@GetMapping("/person/{person_id}/task/{task_id}/allTaskStatuses")
+    <br>
+    <br>@PostMapping("/person/{person_id}/task/{task_id}/updateTaskStatus/{taskstatus_id}/")
+    <br>@GetMapping("/person/{person_id}/task/{task_id}/updateTaskStatus/{taskstatus_id}/")
+    <br>	as in http://localhost:8080/worksuggest_war_exploded/person/1/task/1/updateTaskStatus/63/
+    <br>
+    <br>@GetMapping("/person/{person_id}/task/{task_id}/updateTaskStatus/{taskstatus_id}/")
+    <br>
+    <br>@PostMapping("/person/{person_id}/task/{task_id}/addTaskStatus/")
+    <br>@GetMapping("/person/{person_id}/task/{task_id}/addTaskStatus/")
+    <br>
+    <br>
+    <br>***shows empty @GetMapping("/person/{person_id}/task/{task_id})
+    <br>
+    <br>@PostMapping("/person/{person_id}/add_a_task")
+    <br>@GetMapping("/person/{person_id}/add_a_task")
+    <br>@RequestMapping(value = "/register_as_person", method = RequestMethod.GET)
+    <br>@RequestMapping(value="/register_as_person", method= RequestMethod.POST)
+    <br>@GetMapping(value = "/person/{personId}")
+
+
+    <br><br><br><br>
+    <h2>Development Details</h2>
+    <p></p>
+    <h5>Special Thanks to<br>
+        Course Instructor at Java Complex Programming Course<br>
+        And<br>
+        the Java Developer Programme Coordinator<br>
+        at IT Högskolan Göteborg<br>
+    </h5>
+    <br><br>
+
+    <h5>Developer: Bob Bamshad Lotfabadi</h5>
+    <h5>Email address: development@bamshad.se</h5>
+    <h5>January, February, March 2020</h5>
+    <h5>Technique and Tools:</h5>
+    <ul>
+        <li>WildFly Application Server</li>
+        <li>Java Spring Boot</li>
+        <li>MySQL</li>
+        <li>Thymeleaf</li>
+        <li>HTML and CSS</li>
+    </ul>
+
+
+
+
+    <a class="navbar-brand" th:href="${baseURL}"> < Home</a>
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Work Suggest Application</title>
+
+    <!--<link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>&ndash;&gt;&ndash;&gt;-->
+    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" th:href="@{/css/worksuggest_main.css}"/>-->
+
+    <div th:replace="fragments/header.html :: header-css"/>
+
+</head>
+<body>
+
+<div th:insert="fragments/header.html :: header" >...</div>
+
+<main role="main" class="container">
+    <div th:insert="fragments/general.html :: userDetailBar" >This was user bar</div>
+    <div class="starter-template">
+
+        <div id="form_container">
+            <h1 th:text="${taskTitle}"></h1>
+            <hr>
+            <h3><a>Add a task status</a></h3>
+            <form id="form_99788" class="appnitro"  method="post" action="#" th:action="@{'./'}" th:object="${taskstatus}">
+<!--                <input type="hidden" name="person_id" th:value="${person_id}">-->
+                <ol >
+                    <!--                    <li>-->
+                    <!--                        <input type="text" th:field="*{id}" readonly="readonly"/>-->
+                    <!--                    </li>-->
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Status</label>
+                        <div>
+                            <input th:field="${taskstatus.status}" id="element_1" name="title" class="element text medium" type="text" maxlength="255" value=""/>
+                            <div th:if="${#fields.hasErrors('status')}" th:errors="${taskstatus.status}"
+                                 style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                                Status Error</div>
+                        </div>
+                    </li>
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Comments</label>
+                        <div>
+                            <textarea rows="5" cols="15" th:field="${taskstatus.comments}" id="element_1" name="element_1" class="element text medium"></textarea>
+                            <div th:if="${#fields.hasErrors('comments')}" th:errors="${taskstatus.comments}"
+                                 style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                                Comments Error</div>
+                        </div>
+                    </li>
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Start date time</label>
+                        <div>
+                            <input th:field="${taskstatus.startdatetime}" id="element_1" name="title" class="element text medium" type="text" maxlength="255" value=""/>
+                            <div th:if="${#fields.hasErrors('startdatetime')}" th:errors="${taskstatus.startdatetime}"
+                                 style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                                Start Date Time Error</div>
+                        </div>
+                    </li>
+                    <li id="li_1" >
+                        <label class="description" for="element_1">End date time</label>
+                        <div>
+                            <input th:field="${taskstatus.enddatetime}" id="element_1" name="title" class="element text medium" type="text" maxlength="255" value=""/>
+                            <div th:if="${#fields.hasErrors('enddatetime')}" th:errors="${taskstatus.enddatetime}"
+                                 style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                                End Date Time Error</div>
+                        </div>
+                    </li>
+                    <li id="li_1" >
+                        <label class="description" for="element_1">Duration</label>
+                        <div>
+                            <input th:field="${taskstatus.duration}" id="element_1" name="title" class="element text medium" type="text" maxlength="255" value=""/>
+                            <div th:if="${#fields.hasErrors('duration')}" th:errors="${taskstatus.duration}"
+                                 style="color: lightgoldenrodyellow; border: 1px solid black; background-color: darkred;padding: 10px;">
+                                Duration Error</div>
+                        </div>
+                    </li>
+
+                    <li class="buttons">
+                        <input type="hidden" name="form_id" value="99788" />
+
+                        <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+                    </li>
+                </ol>
+            </form>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

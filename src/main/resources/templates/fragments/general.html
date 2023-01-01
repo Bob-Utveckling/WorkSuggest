@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<meta charset="UTF-8" />
+<title>Administration page</title>
+<body>
+
+
+<span th:fragment="message"
+     style="padding:10px; border-radius: 10px; border: 1px solid darkcyan; background-color: lightgoldenrodyellow">
+    <span th:text="${message}"></span>
+</span>
+
+<div th:fragment="adminDetailBar"
+     style="background-color: #4b4c93;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;">
+    <span th:text="${admin.name}" /> |
+    Administration | Welcome <span align="right" th:text="${admin.name}"></span>!
+    <span style="float:right; padding:15px; border-radius: 15px; background-color: #60a9e6; border: 1px solid black;">
+        <a style="color:white" th:href="@{${baseURL} + '/admin'}">
+            Home
+        </a>
+    </span>
+
+</div>
+
+<div th:fragment="userDetailBar"
+     style="background-color: #54d369;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;">
+    <span th:text="${person.username}" /> |
+    Welcome <span align="right" th:text="${person.name}"></span>! |
+    <span th:text="${person.phone}" />
+    <span style="float:right; padding:15px; border-radius: 15px; background-color: #c3e6cb; border: 1px solid black;">
+        <a th:href="@{${baseURL} + '/person/1'}">
+            Home
+        </a>
+    </span>
+</div>
+
+<div th:fragment="adminworksuggestitems"
+     style="background-color: rgba(79,101,136,0.67);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;">
+    <span style="border-left:3px solid white;
+        border-top:3px solid white;
+        border-right:3px solid white;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;">
+        "Work Suggest" Items
+    </span>
+    <style>
+        .dataRow {
+            border-bottom: 2px solid white;
+        }
+        .dataRow:hover {
+            background-color: rgba(96, 133, 226, 0.91);
+        }
+    </style>
+    <table style="width:100%">
+        <tr style="background-color: #8374bb">
+            <td>Id</td>
+            <td></td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Admin Id</td>
+            <td>Person Id</td>
+            <td>General Status</td>
+        </tr>
+        <tr class="dataRow" th:each="iter : ${worksuggests}">
+            <td th:text="${iter.worksuggest_id}">id</td>
+            <td><a th:href="@{${baseURL} + '/admin/worksuggestlist/' + ${iter.worksuggest_id} + '/remove/' }"
+                   style="background-color: white; border-radius: 10px;">
+                remove</a>
+            </td>
+            <td th:text="${iter.title}">iter.title</td>
+            <!--            <td th:text="${iter.description} ?: '(Not Mentioned)'">iter.description</td>-->
+            <td th:text="${iter.description}">iter.description</td>
+            <td th:text="${iter.adminid}">iter.adminId</td>
+            <td th:text="${iter.personid}">iter.personId</td>
+            <td th:switch="${iter.generalstatus}">
+                <div th:case="'waiting for review'">
+                    <div style="background-color: orange; border-radius: 15px; padding: 15px;">
+                        Waiting for review
+                    </div>
+                    <a th:href="@{${baseURL} + '/admin/setListToReviewing/' + ${iter.worksuggest_id} }"
+                       style="background-color: white; border-radius: 15px;">
+                        Click to set to 'Reviewing'</a>
+                    <br>
+                    <a th:href="@{${baseURL} + '/admin/confirmList/' + ${iter.worksuggest_id} }"
+                    style="background-color: white; border-radius: 15px;">
+                        Click to 'Confirm'</a>
+                </div>
+
+                <div th:case="'reviewing'">
+                    <div style="background-color: #ffef87; color: black; border-radius: 15px; padding: 15px;">
+                        Being Reviewed
+                    </div>
+                    <a th:href="@{${baseURL} + '/admin/confirmList/' + ${iter.worksuggest_id} }"
+                       style="background-color: white; border-radius: 15px;">
+                        Click to 'Confirm'</a>
+                </div>
+
+                <div th:case="'confirmed'">
+                   <div style="background-color: green; border-radius: 15px; padding: 15px;">
+                    Confirmed
+                   </div>
+                    <a th:href="@{${baseURL} + '/admin/setListToReviewing/' + ${iter.worksuggest_id} }"
+                       style="background-color: white; border-radius: 5px; font-size: 15px;">
+                        Click to set back to 'Reviewing'
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<div th:fragment="worksuggestitems"
+     style="background-color: rgba(84,211,105,0.46);
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;">
+    <span style="border-left:3px solid white;
+        border-top:3px solid white;
+        border-right:3px solid white;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;">
+        "Work Suggest" Items
+    </span>
+    <style>
+        #suggestButton {
+        float:right;
+        vertical-align: center;
+        border:1px solid darkcyan;
+        border-radius: 15px;
+        font-size: 20px;
+        background-color: green;
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        }
+        #suggestButton:hover {
+        background-color: #7bd756;
+        color: black;
+        }
+        .dataRow {
+            border-bottom: 2px solid white;
+        }
+        .dataRow:hover {
+            background-color: rgba(78, 226, 104, 0.58);
+        }
+    </style>
+    <span id="suggestButton">
+        <a style="color: white;" th:href="@{ ${baseURL} + '/person/' + ${person.person_id} + '/worksuggestlist/suggest/'}">
+        + Suggest Work
+        </a>
+    </span>
+    <table style="width:100%">
+        <tr style="background-color: #c3e6cb">
+            <td>Id</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Admin Id</td>
+            <td>Person Id</td>
+            <td>General Status</td>
+        </tr>
+        <tr class="dataRow" th:each="iter : ${workSuggests}">
+            <td th:text="${iter.worksuggest_id}">id</td>
+            <td th:text="${iter.title}">iter.title</td>
+<!--            <td th:text="${iter.description} ?: '(Not Mentioned)'">iter.description</td>-->
+            <td th:text="${iter.description}">iter.description</td>
+            <td th:text="${iter.adminid}">iter.adminId</td>
+            <td th:text="${iter.personid}">iter.personId</td>
+            <td th:text="${iter.generalstatus}">iter.generalStatus</td>
+        </tr>
+    </table>
+</div>
+
+<div th:fragment="taskItemsForEachWork"
+     style="background-color: rgb(213,252,255);
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;">
+    <span style="border-left:3px solid #97b1ff;
+        border-top:3px solid #a2c3ff;
+        border-right:3px solid #75c2ff;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;">
+        "Task Items" in each Work List
+    </span>
+    <style>
+        #addTaskButton {
+            float:right;
+            vertical-align: center;
+            border:1px solid #338b4a;
+            border-radius: 15px;
+            font-size: 20px;
+            background-color: #476e80;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #addTaskButton:hover {
+            background-color: #557eff;
+            color: black;
+        }
+        .dataRow {
+            border-bottom: 2px solid white;
+        }
+        .dataRow:hover {
+            background-color: rgba(60, 226, 187, 0.58);
+        }
+        #addTaskStatusButton {
+            float:right;
+            vertical-align: center;
+            border:1px solid #5a658b;
+            border-radius: 15px;
+            font-size: 15px;
+            background-color: #626ece;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #addTaskStatusButton:hover {
+            background-color: white;
+            color: black;
+        }
+        #addPersonButton {
+            border:1px solid #4f8b70;
+            border-radius: 15px;
+            font-size: 15px;
+            background-color: #389bce;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #addPersonButton:hover {
+            background-color: white;
+            color: black;
+        }
+        #usernameTd {
+            background-color: rgba(145, 217, 243, 0.24);
+            border: 1px solid black;
+            margin-bottom: 5px;
+        }
+    </style>
+    <span id="addTaskButton">
+        <a style="color:white;" th:href="@{ ${baseURL} + '/person/' + ${person.person_id} + '/add_a_task/'}">
+        + Add a task
+        </a>
+    </span>
+
+    <table style="width:100%">
+        <tr style="background-color: rgba(117,230,228,0.32)">
+            <td>Id</td>
+            <td></td>
+            <td>Work List Id</td>
+            <td>Person Id</td>
+            <td>Other Persons</td>
+            <td>Task Title</td>
+            <td>Description</td>
+            <td>Resource description</td>
+            <td>Most Recent Status</td>
+            <td></td>
+        </tr>
+        <tr class="dataRow" th:each="iter, stats : ${tasks}">
+            <td style="background-color:#80bdff;" th:text="${iter.task_id}">id</td>
+            <td>
+                <a th:href="@{${baseURL} + '/person/' + ${person.person_id} +
+                    '/task/' + ${iter.task_id} + '/remove/'}"
+                   style="background-color: white; border-radius: 10px;">remove</a>
+            </td>
+            <td th:text="${iter.worklist_id}">work list id</td>
+            <td> <div th:text="${iter.person_id}"></div></td>
+            <td>
+                <table>
+                    <tr th:each="person : ${iter.persons}">
+                        <td id="usernameTd" th:text="${person.username}">person user name</td>
+                    </tr>
+                </table>
+                <a th:href="@{${baseURL} + '/person/' + ${person.person_id} +
+                    '/task/' + ${iter.task_id} + '/addPerson/'}"
+                id="addPersonButton">+ Add Person</a>
+            </td>
+            <td th:text="${iter.title}">title</td>
+            <td th:text="${iter.description}">description</td>
+            <td th:text="${iter.resource_description}">resource description</td>
+            <td style="background-color: rgba(60,226,187,0.38)"
+                th:text="${taskstatuses[stats.index]}">most recent task status</td>
+            <td>
+                <a th:href=
+                           "@{ ${baseURL} +  '/person/' +
+                             ${person.person_id} +
+                              '/task/' + ${iter.task_id} +
+                               '/addTaskStatus/'}"
+                id="addTaskStatusButton">+ Add Task Status</a>
+                <a th:href=
+                           "@{ ${baseURL} +  '/person/' +
+                             ${person.person_id} +
+                              '/task/' + ${iter.task_id} +
+                               '/allTaskStatuses/'}"
+                >see all tasks statuses</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+
+</body>
+</html>

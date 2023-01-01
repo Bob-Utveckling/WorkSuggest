@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Work Suggest Application</title>
+
+    <!--<link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>&ndash;&gt;&ndash;&gt;-->
+    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>-->
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" th:href="@{/css/worksuggest_main.css}"/>-->
+
+    <div th:replace="fragments/header.html :: header-css"/>
+
+</head>
+<body>
+
+<div th:insert="fragments/header.html :: header" >...</div>
+
+<main role="main" class="container">
+    <div th:insert="fragments/general.html :: userDetailBar" >This was user bar</div>
+    <div class="starter-template">
+        <h1 th:text="${taskTitle}"></h1>
+        <hr>
+        <div id="form_container">
+            <h3>Add Person to task</h3>
+            <form id="form_99788" class="appnitro"  method="post" action="#" th:action="@{'./'}" th:object="${persons}">
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr><td style="background-color: #b3d7ff">Person Id</td><td>Person's Username</td></tr>
+                                <tr class="dataRow" th:each="iter : ${persons}">
+                                    <td style="background-color: #b3d7ff; padding-right: 20px;"
+                                        th:text="${iter.person_id}">id</td>
+                                    <td th:text="${iter.username}">username</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <li id="li_1" >
+                                <label class="description">Enter person's ID:</label>
+                                <div>
+                                    <input type="text" name="personToAdd_id" maxlength="255" value=""/>
+                                </div>
+                            </li>
+
+                            <li class="buttons">
+                                <input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
+                            </li>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

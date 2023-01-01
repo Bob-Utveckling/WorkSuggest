@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home -- Application for Suggesting and Completing Works</title>
+    <div th:insert="fragments/header.html :: header-css" >...</div>
+</head>
+
+<body>
+
+
+    <div th:insert="fragments/header.html :: header" >This was header bar</div>
+
+    <main role="main" class="container">
+        <div th:insert="fragments/general.html :: userDetailBar" >This was user bar</div>
+        <div th:insert="fragments/general.html :: message">This was message bar</div>
+
+    <div id="boxes">
+        <a th:href="@{ ${baseURL} + '/person/' + ${person.person_id} + '/worksuggestlist/suggest/'}"><span id="suggestTaskBox">Suggest Work List</span></a>
+        <a th:href="@{ ${baseURL} + '/person/' + ${person.person_id} + '/add_a_task/'}"><span id="suggestTaskBox">Add A Task</span></a>
+        <!--    <a th:href="@{ '../person/' + ${person.id} + '/suggest_a_task/'}"><span id="suggestTaskBox">Suggest Task</span></a>-->
+        <!--    <a th:href="@{ ${baseURL} + '/person/' + ${person.id} + '/suggest_a_task/'}"><span id="suggestTaskBox">Suggest Task</span></a>-->
+        <!--    <a th:href="${baseURL + '/person/' + person.id + '/suggest_a_task/'}"><span id="suggestTaskBox">Suggest Task</span></a>-->
+    </div>
+    <!-- <ol>
+        <li th:each="task : ${tasks}" th:text="${task}"></li>
+    </ol> -->
+    <div th:insert="fragments/general.html :: worksuggestitems" >This was work list panel</div>
+    <div th:insert="fragments/general.html :: taskItemsForEachWork" >This was work panel for task items in each work suggest list</div>
+
+
+    <div style="margin-top: 50px;"><h4><a th:href="@{ ${baseURL} + '/about'}">About</a></h4></div>
+
+</main>
+<!-- /.container -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
